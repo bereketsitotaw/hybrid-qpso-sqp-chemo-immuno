@@ -1,0 +1,29 @@
+# MATLAB
+*.asv
+*.autosave
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# MATLAB session data
+*.mex*
+slprj/
+codegen/
+
+# Regenerable run outputs (reproduce via scripts/reproduce_paper.m)
+results/*.mat
+results/reference/canonical_outputs.mat
+results/reference/freeze_metadata.mat
+results/reference/table3_computed.csv
+results/figures/fig*.png
+results/figures/fig*.eps
+
+# Keep: results/figures/Case_*.eps (author reference figures)
+# Keep: results/reference/table3_paper.csv
+
+# Temporary
+*.log
+*.tmp

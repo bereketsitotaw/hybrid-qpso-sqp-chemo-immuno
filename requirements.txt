@@ -1,0 +1,21 @@
+# MATLAB dependencies for QPSO_SQP chemo-immunotherapy reproduction
+
+MATLAB >= R2020b (R2024a used for published results)
+
+Required toolboxes:
+- Optimization Toolbox >= 9.5  (fmincon, SQP algorithm, optimoptions)
+
+Recommended toolboxes:
+- Parallel Computing Toolbox  (optional: cfg.qpso.useParfor = true)
+
+Pinned reproducibility (author environment):
+- rng(42,'twister')
+- ode45 RelTol=1e-8, AbsTol=1e-10  (QPSO warm-start rollout)
+- Paper Table 2 alternative: RelTol=AbsTol=1e-3 (documented in configs/reproducibility_settings.m)
+
+Built-in functions used:
+- ode45, odeset, trapz, gradient, smoothdata, interp1, exportgraphics, writetable
+
+Tested platform: macOS (darwin 24.6.0)
+
+Note: This project is MATLAB-only. No Python/conda environment is required.

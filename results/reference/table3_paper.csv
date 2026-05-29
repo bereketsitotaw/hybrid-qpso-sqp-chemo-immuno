@@ -1,0 +1,5 @@
+Metric,Case A,Case B,Case C
+Time (T),4.917,4.723,4.417
+Chemo (Du),2.771,2.528,3.401
+Immuno (Dv),1.785,4.723,4.417
+Chemo reduction vs Case C (%),-18.5,-25.7,0

@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated paper."
+title: "Optimal Chemo-Immunotherapy Scheduling: A Hybrid QPSO-SQP Approach with Michaelis-Menten Pharmacodynamics"
+version: 1.0.0
+doi: 10.3934/dcdsb.2026072
+date-released: 2026-04-30
+authors:
+  - family-names: Kidane
+    given-names: Bereket Sitotaw
+    affiliation: "Department of Mechanical and Aerospace Engineering, The University of Texas at Arlington"
+  - family-names: Motayed
+    given-names: Md Samiul Haque
+    affiliation: "Department of Mechanical and Aerospace Engineering, The University of Texas at Arlington"
+  - family-names: Wang
+    given-names: Shuo
+    affiliation: "Department of Mechanical and Aerospace Engineering, The University of Texas at Arlington"
+    email: shuo.wang@uta.edu
+repository-code: "https://github.com/bereketsitotaw/hybrid-qpso-sqp-chemo-immuno"
+url: "https://doi.org/10.3934/dcdsb.2026072"
+license: MIT
+keywords:
+  - optimal control
+  - chemo-immunotherapy
+  - Michaelis-Menten
+  - QPSO
+  - SQP
+  - Pontryagin maximum principle
+preferred-citation: "B. S. Kidane, M. S. H. Motayed and S. Wang, Optimal chemo-immunotherapy scheduling: A hybrid QPSO-SQP approach with Michaelis-Menten pharmacodynamics, Discrete Contin. Dyn. Syst. Ser. B (2026). doi:10.3934/dcdsb.2026072"
