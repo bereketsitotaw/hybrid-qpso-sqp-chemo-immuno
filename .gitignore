@@ -1,9 +1,25 @@
-# Generated locally by main.m — not tracked
+# Generated locally by main.m — not tracked (keep results/reference/ trackable)
 results/*.mat
 results/table3.csv
 results/figures/*.png
+results/figures/*.eps
+results/figures/*.fig
+results/generated/*.mat
+results/generated/*.csv
+!results/generated/.gitkeep
+!results/reference/**
+!results/figures/.gitkeep
 
-# OS / MATLAB
+# OS / editor
 .DS_Store
+Thumbs.db
+*~
+*.swp
+
+# MATLAB
 *.asv
+*.autosave
+*.mex*
+*.slxc
 slprj/
+*.prj
