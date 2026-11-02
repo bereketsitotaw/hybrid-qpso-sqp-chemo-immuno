@@ -46,4 +46,14 @@ function repro = reproducibility_settings()
     repro.metric_abs_tol_T = 0.15;       % days
     repro.metric_abs_tol_exposure = 0.20; % normalized dose-time
     repro.metric_abs_tol_xf = 0.05;    % terminal tumor (target = 1.0)
+
+    % --- Smoke overrides (plumbing only; NOT paper-quality optima) ---
+    repro.smoke_grid_N = 20;
+    repro.smoke_qpso_swarm_size = 8;
+    repro.smoke_qpso_max_iter = 5;
+    repro.smoke_sqp_max_iterations = 50;
+    repro.smoke_sqp_max_function_evaluations = 5e3;
+    repro.smoke_enable_pmp = false;
+    repro.smoke_use_parfor = false;
+    repro.smoke_sqp_display = 'off';
 end

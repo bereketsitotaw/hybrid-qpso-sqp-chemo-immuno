@@ -1,0 +1,58 @@
+name: repo-smoke
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  layout-and-publication-pins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Required paths exist
+        run: |
+          set -euo pipefail
+          test -f main.m
+          test -f init_project.m
+          test -f configs/get_model_parameters.m
+          test -f configs/reference_metrics.m
+          test -f configs/reproducibility_settings.m
+          test -f configs/assert_publication_defaults.m
+          test -f configs/case_a_balanced.m
+          test -f src/chemo_immuno/solve_chemo_immuno_ocp.m
+          test -f src/chemo_immuno/dynamics.m
+          test -f tests/run_smoke_tests.m
+          test -f docs/REPRODUCIBILITY.md
+          test -f results/reference/README.md
+          test -f CITATION.cff
+          test -f LICENSE
+
+      - name: Table 1 parameters present
+        run: |
+          set -euo pipefail
+          grep -q "xi = 0.5618" configs/get_model_parameters.m
+          grep -q "x_inf = 780" configs/get_model_parameters.m
+          grep -q "a = 0.00726" configs/get_model_parameters.m
+          grep -q "x0 = 650" configs/get_model_parameters.m
+          grep -q "xf = 1.0" configs/get_model_parameters.m
+
+      - name: Section 5 case weights present
+        run: |
+          set -euo pipefail
+          grep -q "A = 1.0" configs/case_a_balanced.m
+          grep -q "B = 0.3" configs/case_a_balanced.m
+          grep -q "C = 1.0" configs/case_a_balanced.m
+          grep -q "B = 0.0" configs/case_b_asymmetric.m
+          grep -q "A = 0.0" configs/case_c_min_time.m
+
+      - name: Table 3 reference pin present
+        run: |
+          set -euo pipefail
+          grep -q "T', 4.917" configs/reference_metrics.m || grep -q "'T', 4.917" configs/reference_metrics.m
+          grep -q "4.917" configs/reference_metrics.m
+          grep -q "2.771" configs/reference_metrics.m
+          grep -q "4.723" configs/reference_metrics.m
+          grep -q "3.401" configs/reference_metrics.m
+          grep -q -- "-18.5" configs/reference_metrics.m
+          grep -q -- "-25.7" configs/reference_metrics.m

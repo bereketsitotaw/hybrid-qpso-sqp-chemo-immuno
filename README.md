@@ -11,15 +11,21 @@ MATLAB code for the hybrid **Quantum PSO + SQP** method in:
 
 **Authors:** Bereket Sitotaw Kidane, Md Samiul Haque Motayed, Shuo Wang (UT Arlington)
 
+## Method overview
+
+Michaelis–Menten saturation in both therapy channels yields a non-control-affine OCP. A QPSO warm start plus trapezoidal collocation / `fmincon` SQP recovers mixed boundary–interior dosing; PMP diagnostics corroborate the structure (DCDS-B Sections 2–5).
+
 ## Quick start
 
 ```matlab
 cd hybrid-qpso-sqp-chemo-immuno
 main          % Cases A, B, C
 main('a')     % one case only
+main('test')  % smoke tests (no full solve)
+main('smoke') % tiny non-paper plumbing solve
 ```
 
-Outputs: `results/case_*_solution.mat`, `results/table3.csv`, `results/figures/*.png`
+Outputs: `results/generated/case_*_solution.mat` (and legacy `results/*.mat`), `results/table3.csv`, `results/figures/*.png`
 
 ## Requirements
 
@@ -34,16 +40,26 @@ Outputs: `results/case_*_solution.mat`, `results/table3.csv`, `results/figures/*
 | `main('b')` | Asymmetric regularization | `(1, 0, 1)` |
 | `main('c')` | Minimum-time limit | `(0, 0, 1)` |
 
+Table 1 parameters: `configs/get_model_parameters.m`.  
+Table 3 pin: `configs/reference_metrics.m`.
+
 ## Repository layout
 
 ```
-main.m                 Run here
-init_project.m         Path setup
-configs/               Parameters and case studies
-src/chemo_immuno/      QPSO + SQP solver
-src/utils/             Plots and Table 3 check
-results/               Generated locally (not in git)
+main.m / init_project.m
+configs/               Table 1/2 settings, cases, asserts, repro pins
+src/chemo_immuno/      QPSO + SQP + PMP
+src/utils/             Plots, Table 3, validation
+tests/                 MATLAB smoke tests
+docs/REPRODUCIBILITY.md
+results/generated/     Run outputs (preferred)
+results/reference/     Optional frozen mats + pin notes
+.github/workflows/     Layout / publication-constant CI
 ```
+
+## Reproducibility
+
+See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md). Seed `rng(42,'twister')`. Default path asserts publication Table 1 / case weights before each solve.
 
 ## Citation
 
@@ -57,6 +73,12 @@ results/               Generated locally (not in git)
 }
 ```
 
+Also see [CITATION.cff](CITATION.cff).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Issues
+
+Bug reports and reproduction questions: GitHub Issues on this repository.

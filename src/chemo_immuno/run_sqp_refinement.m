@@ -43,8 +43,27 @@ function [z_opt, J_opt, lambda_struct, fmincon_time, sqp] = run_sqp_refinement(p
         'OptimalityTolerance', sqp.optimalityTolerance);
 
     tic;
-    [z_opt, J_opt, ~, ~, lambda_struct] = fmincon( ...
+    [z_opt, J_opt, exitflag, output, lambda_struct] = fmincon( ...
         @(z) objective_func(z, p, N), z0, ...
         [], [], [], [], lb, ub, @(z) nonlinear_constraints(z, p, N), options);
     fmincon_time = toc;
+
+    sqp.exitflag = exitflag;
+    if isstruct(output)
+        sqp.iterations = output.iterations;
+        if isfield(output, 'constrviolation')
+            sqp.constrviolation = output.constrviolation;
+        end
+        if isfield(output, 'firstorderopt')
+            sqp.firstorderopt = output.firstorderopt;
+        end
+    end
+    fprintf('   SQP exitflag=%d', exitflag);
+    if isfield(sqp, 'constrviolation')
+        fprintf(' | constrviol=%.3e', sqp.constrviolation);
+    end
+    if isfield(sqp, 'firstorderopt')
+        fprintf(' | firstorderopt=%.3e', sqp.firstorderopt);
+    end
+    fprintf('\n');
 end

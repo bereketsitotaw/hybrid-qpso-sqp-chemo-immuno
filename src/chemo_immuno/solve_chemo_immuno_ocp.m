@@ -26,6 +26,13 @@ function [solution, summary] = solve_chemo_immuno_ocp(cfg)
 
     fprintf('========================================\n');
     fprintf('Hybrid QPSO-SQP: %s\n', case_name);
+    if isfield(cfg, 'smoke') && cfg.smoke
+        fprintf('Mode: SMOKE (non-paper plumbing; not Table 3 quality)\n');
+    end
+    fprintf('Weights: (A,B,C)=(%.4g,%.4g,%.4g) | ell=(%.4g,%.4g,%.4g)\n', ...
+        p.A, p.B, p.C, p.l1, p.l2, p.l3);
+    fprintf('Grid N=%d | QPSO swarm=%d maxIter=%d rho=%.3g\n', ...
+        N, qpso.swarmSize, qpso.maxIter, qpso.rho);
     fprintf('========================================\n');
 
     fprintf('Stage 1: QPSO global search (T_guess = %.2f)...\n', T_guess);
@@ -60,6 +67,12 @@ function [solution, summary] = solve_chemo_immuno_ocp(cfg)
     summary.total_chemo = trapz(solution.time, solution.u);
     summary.total_immuno = trapz(solution.time, solution.v);
     summary.terminal_tumor = solution.x(end);
+    if isfield(sqp, 'exitflag')
+        summary.sqp_exitflag = sqp.exitflag;
+    end
+    if isfield(sqp, 'constrviolation')
+        summary.sqp_constrviolation = sqp.constrviolation;
+    end
     summary.cfg = cfg;
 
     fprintf('----------------------------------------\n');
